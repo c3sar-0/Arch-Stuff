@@ -49,7 +49,9 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 while true; do
-	xsetroot -name "B1: $(cat /sys/class/power_supply/BAT1/capacity) B0: $(cat /sys/class/power_supply/BAT0/capacity) | $(df -h | grep "/dev/sda2" | awk '{printf $4}') $(free -m | awk 'NR==2{printf $3}')MB $(mpstat | awk 'NR==4{printf $4}')% | $(date '+%H:%M %a %d')"
+	bat0=$(cat /sys/class/power_supply/BAT0/capacity)
+	bat0Charging=""
+	xsetroot -name "B1: $(cat /sys/class/power_supply/BAT1/capacity)% B0: $(cat /sys/class/power_supply/BAT0/capacity)% | CPU: $(sensors | grep CPU | sed s/' '// | awk '{printf $2}') | $(df -h | grep "/dev/sda2" | awk '{printf $4}') $(free -m | awk 'NR==2{printf $3}')MB $(mpstat | awk 'NR==4{printf $4}')% | $(date '+%H:%M %a %d')"
 	sleep 2
 done &
 
