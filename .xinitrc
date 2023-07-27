@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin
 
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
@@ -55,7 +55,10 @@ while true; do
 	sleep 2
 done &
 
-feh --bg-fill /home/c3sar/Wallpapers/wallhaven-6o951w.jpg &
+#feh --bg-fill /home/c3sar/Wallpapers/wallhaven-2eq9vm.png &
+#feh --bg-fill /home/c3sar/Wallpapers/cat.png &
+feh --bg-fill /home/c3sar/Wallpapers/dark-souls-knight.gif &
 
 picom &
+xbindkeys &
 exec dwm
