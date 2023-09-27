@@ -5,7 +5,7 @@ static const unsigned int borderpx  = 0;        /* border pixel of windows, defa
 static const unsigned int snap      = 32;       /* snap pixel, default=32 */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Source Code Pro:size=10" };
+static const char *fonts[]          = { "Dina:size=10:weight=bold" };
 static const char dmenufont[]       = "Source Code Pro:size=10"; /* "monospace:size=10"; */
 static const char col_gray1[]       = "#121825";/* #222222 */
 static const char col_gray2[]       = "#444444";/* #444444 */
@@ -13,15 +13,22 @@ static const char col_gray3[]       = "#bbbbbb";/* #bbbbbb */
 static const char col_gray4[]       = "#121825";/* #eeeeee */
 static const char col_cyan[]        = "#294A4D";/* #005577 */
 static const char col_white[]	    = "#fff";
+static const unsigned int baralpha = 0x00;/* 0xd0 */
+static const unsigned int borderalpha = 0x00;/* OPAQUE */
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_white,  col_white  },
+	/*[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },*/
+	[SchemeNorm] = { col_white, 0x00, 0x00 },
+	/*[SchemeSel]  = { col_gray4, col_white,  col_white  },*/
+	[SchemeSel]  = { "#000", col_white, 0x00 },
 };
-
+static const unsigned int alphas[][3] = {
+    	/*               fg      bg        border*/
+	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
+	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
+};
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class

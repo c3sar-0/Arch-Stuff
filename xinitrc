@@ -8,15 +8,7 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 # merge in defaults and keymaps
 
 if [ -f $sysresources ]; then
-
-
-
-
-
-
-
     xrdb -merge $sysresources
-
 fi
 
 if [ -f $sysmodmap ]; then
@@ -24,15 +16,7 @@ if [ -f $sysmodmap ]; then
 fi
 
 if [ -f "$userresources" ]; then
-
-
-
-
-
-
-
     xrdb -merge "$userresources"
-
 fi
 
 if [ -f "$usermodmap" ]; then
@@ -41,7 +25,7 @@ fi
 
 # start some nice programs
 
-if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+if [ -d /etc/X11/xinit/xinitrc.d ]; then
  for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
   [ -x "$f" ] && . "$f"
  done
@@ -50,14 +34,15 @@ fi
 
 while true; do
 	bat0=$(cat /sys/class/power_supply/BAT0/capacity)
-	bat0Charging=""
-	xsetroot -name "B1: $(cat /sys/class/power_supply/BAT1/capacity)% B0: $(cat /sys/class/power_supply/BAT0/capacity)% | CPU: $(sensors | grep CPU | sed s/' '// | awk '{printf $2}') | $(df -h | grep "/dev/sda2" | awk '{printf $4}') $(free -m | awk 'NR==2{printf $3}')MB $(mpstat | awk 'NR==4{printf $4}')% | $(date '+%H:%M %a %d')"
+	bat1=$(cat /sys/class/power_supply/BAT1/capacity)
+	xsetroot -name " $(echo $(ifconfig | grep wlan0* -A1 | grep inet | awk '{print $2}')) | B1: $bat1% B0: $bat0% | CPU: $(sensors | grep CPU | sed s/' '// | awk '{printf $2}') | $(df -h | grep '/dev/sda2' | awk '{printf $4}') $(free -m | awk 'NR==2{printf $3}')MB $(mpstat | awk 'NR==4{printf $4}')% | $(date '+%H:%M %a %d')"
 	sleep 2
+	#if [ $bat0 -lt 80  ] && [ $bat1 -lt 80 ]; then
+	#	notify-send -t 3000 "Low battery!" "Battery is under 20%" --icon=dialog-information
+	#fi
 done &
 
-#feh --bg-fill /home/c3sar/Wallpapers/wallhaven-2eq9vm.png &
-#feh --bg-fill /home/c3sar/Wallpapers/cat.png &
-feh --bg-fill /home/c3sar/Wallpapers/dark-souls-knight.gif &
+feh --bg-fill /home/c3sar/Wallpapers/b1.png &
 
 picom &
 xbindkeys &
